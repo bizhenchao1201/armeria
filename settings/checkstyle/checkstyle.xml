@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE module PUBLIC
-  "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
-  "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+  "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+  "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
 <module name="Checker">
   <property name="charset" value="UTF-8"/>
@@ -9,6 +9,9 @@
   <property name="fileExtensions" value="java, properties, xml"/>
 
   <module name="SuppressWarningsFilter" />
+  <module name="SuppressionFilter">
+    <property name="file" value="${checkstyleConfigDir}/checkstyle-suppressions.xml"/>
+  </module>
 
   <module name="Header">
     <property name="fileExtensions" value="java"/>
@@ -18,6 +21,81 @@
 
   <module name="FileTabCharacter">
     <property name="eachLine" value="true"/>
+  </module>
+
+  <module name="LineLength">
+    <property name="max" value="112"/>
+    <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
+  </module>
+
+  <!-- Copyright headers -->
+  <module name="RegexpSingleline">
+    <property name="id" value="CopyrightHeader"/>
+    <property name="format" value="^(?:\s|\*)*Copyright\s+[0-9]+\s+LINE Corporation\s*$"/>
+    <property name="minimum" value="1"/>
+    <property name="maximum" value="1"/>
+    <property name="message" value="missing copyright header"/>
+  </module>
+  <module name="RegexpSingleline">
+    <property name="id" value="NoCopyrightHeader"/>
+    <property name="format" value="^(?:\s|/|\*)*copyright"/>
+    <property name="ignoreCase" value="true"/>
+    <property name="message" value="A copyright header must not appear in examples."/>
+  </module>
+  <!-- All packages must be annotated with @NonNullByDefault -->
+  <module name="RegexpSingleline">
+    <property name="id" value="NonNullByDefaultAnnotation"/>
+    <property name="format" value="^\s*@(?:com\.linecorp\.armeria\.common\.util\.)?NonNullByDefault"/>
+    <property name="minimum" value="1"/>
+    <property name="maximum" value="1"/>
+    <property name="message" value="A package must be annotated with @NonNullByDefault."/>
+  </module>
+  <!-- Unmaintainable Javadoc tags -->
+  <module name="RegexpSingleline">
+    <property name="format" value="(?:@version|\(non-Javadoc\))"/>
+    <property name="ignoreCase" value="true"/>
+    <property name="message" value="unmaintainable Javadoc tags: @version or (non-Javadoc)"/>
+  </module>
+  <!-- IDE-generated comment -->
+  <module name="RegexpSingleline">
+    <property name="format" value="File \| Settings \| File Templates"/>
+    <property name="message" value="IDE-generated comment"/>
+  </module>
+  <!-- Trailing spaces -->
+  <module name="RegexpSingleline">
+    <property name="format" value="\s+$"/>
+    <property name="message" value="trailing spaces"/>
+  </module>
+  <!-- Consecutive empty lines -->
+  <module name="RegexpMultiline">
+    <property name="format" value="[^\r\n](?:\r?\n){3,}"/>
+    <property name="message" value="consecutive empty lines"/>
+  </module>
+  <!-- Empty lines between two opening braces -->
+  <module name="RegexpMultiline">
+    <property name="format" value="\{(?:\s*\r?\n){2,}\s*\{"/>
+    <property name="message" value="empty lines between two opening braces ('{')"/>
+  </module>
+  <!-- Empty lines before a closing brace -->
+  <module name="RegexpMultiline">
+    <property name="format" value="(?:\s*\r?\n){2,}\s*\}"/>
+    <property name="message" value="empty lines before a closing brace ('}')"/>
+  </module>
+  <!-- Test classes -->
+  <module name="RegexpSingleline">
+    <property name="format" value="org.assertj.core.api.Java6Assertions"/>
+    <property name="message"
+              value="Java6Assertions must not be used with Java8. Use org.assertj.core.api.Assertions instead."/>
+  </module>
+  <!--
+    for (;;) with spaces, e.g.
+    - for ( ;;)
+    - for (; ;)
+    - for (;; )
+  -->
+  <module name="RegexpSingleline">
+    <property name="format" value="for\s*(?:\(\s+;|\(;\s+;|\(;;\s+\))"/>
+    <property name="message" value="unnecessary spaces in for (;;)"/>
   </module>
 
   <module name="JavadocPackage"/>
@@ -45,12 +123,17 @@
     </module>
     <module name="LeftCurly"/>
     <module name="NeedBraces"/>
-    <module name="RightCurly"/>
     <module name="RightCurly">
-      <property name="option" value="alone"/>
+      <property name="id" value="RightCurly1"/>
+    </module>
+    <module name="RightCurly">
+      <property name="id" value="RightCurly2"/>
+      <property name="option" value="alone_or_singleline"/>
       <property name="tokens"
                 value="CLASS_DEF, METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, STATIC_INIT, INSTANCE_INIT"/>
     </module>
+
+    <module name="FinalLocalVariable"/>
 
     <module name="FinalClass"/>
     <module name="HideUtilityClassConstructor"/>
@@ -101,14 +184,12 @@
       <property name="scope" value="protected"/>
       <property name="excludeScope" value="package"/>
       <property name="allowMissingParamTags" value="true"/>
-      <property name="allowMissingThrowsTags" value="true"/>
       <property name="allowMissingReturnTag" value="true"/>
-      <property name="minLineCount" value="1"/>
       <property name="allowedAnnotations" value="Override, Test"/>
-      <property name="allowThrowsTagsForSubclasses" value="true"/>
-      <property name="allowUndeclaredRTE" value="true"/>
-      <property name="suppressLoadErrors" value="true"/>
     </module>
+    <module name="MissingJavadocMethod"/>
+    <module name="MissingJavadocPackage"/>
+    <module name="MissingJavadocType"/>
     <module name="JavadocParagraph"/>
     <module name="JavadocTagContinuationIndentation"/>
     <module name="NonEmptyAtclauseDescription"/>
@@ -182,16 +263,11 @@
                value="Type name ''{0}'' must match pattern ''{1}''."/>
     </module>
 
-    <module name="LineLength">
-      <property name="max" value="112"/>
-      <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
-    </module>
-
     <module name="EmptyForIteratorPad"/>
     <module name="EmptyLineSeparator">
       <property name="allowNoEmptyLineBetweenFields" value="true"/>
       <property name="tokens"
-                value="IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF, STATIC_INIT, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
+                value="IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
     </module>
     <module name="GenericWhitespace">
       <message key="ws.followed"
@@ -229,6 +305,7 @@
     </module>
     <module name="WhitespaceAround">
       <property name="allowEmptyConstructors" value="true"/>
+      <property name="allowEmptyLambdas" value="true"/>
       <property name="allowEmptyMethods" value="true"/>
       <property name="allowEmptyTypes" value="true"/>
       <property name="allowEmptyLoops" value="false"/>

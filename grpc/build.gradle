@@ -1,0 +1,25 @@
+dependencies {
+    implementation project(':grpc-protocol')
+
+    api 'com.google.protobuf:protobuf-java'
+    implementation 'com.google.protobuf:protobuf-java-util'
+    api 'jakarta.annotation:jakarta.annotation-api'
+
+    // gRPC
+    [ 'grpc-core', 'grpc-protobuf', 'grpc-services', 'grpc-stub' ].each {
+        api "io.grpc:$it"
+    }
+
+    api 'org.curioswitch.curiostack:protobuf-jackson'
+
+    testImplementation 'com.google.api:gax-grpc'
+    testImplementation 'io.grpc:grpc-okhttp'
+    testImplementation 'io.grpc:grpc-testing'
+    testImplementation 'io.micrometer:micrometer-registry-prometheus'
+}
+
+tasks {
+    javadoc {
+        exclude '**/com/linecorp/armeria/common/grpc/InternalExceptionMessages**'
+    }
+}

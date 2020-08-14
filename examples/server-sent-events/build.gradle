@@ -1,0 +1,18 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':core')
+    implementation 'io.projectreactor:reactor-core'
+    runtimeOnly 'org.slf4j:slf4j-simple'
+
+    testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'net.javacrumbs.json-unit:json-unit-fluent'
+    testImplementation 'org.assertj:assertj-core'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+}
+
+application {
+    mainClassName = 'example.armeria.server.sse.Main'
+}

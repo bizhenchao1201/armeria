@@ -1,0 +1,85 @@
+rootProject.name = 'armeria'
+
+apply from: "${rootDir}/gradle/scripts/settings-flags.gradle"
+
+// Published BOM projects
+includeWithFlags ':bom',                                 'bom', 'publish'
+
+// Published Java projects
+includeWithFlags ':annotation-processor',                'java', 'publish', 'relocate'
+includeWithFlags ':brave',                               'java', 'publish', 'relocate'
+includeWithFlags ':core',                                'java', 'publish', 'shade', 'trim'
+includeWithFlags ':eureka',                              'java', 'publish', 'relocate'
+includeWithFlags ':grpc',                                'java', 'publish', 'relocate'
+includeWithFlags ':grpc-protocol',                       'java', 'publish', 'relocate'
+includeWithFlags ':jetty9',                              'java', 'publish', 'relocate'
+includeWithFlags ':junit4',                              'java', 'publish', 'relocate'
+includeWithFlags ':junit5',                              'java', 'publish', 'relocate'
+includeWithFlags ':kafka',                               'java', 'publish', 'relocate'
+includeWithFlags ':logback',                             'java', 'publish', 'relocate'
+includeWithFlags ':retrofit2',                           'java', 'publish', 'relocate'
+includeWithFlags ':rxjava2',                             'java', 'publish', 'relocate'
+includeWithFlags ':rxjava3',                             'java', 'publish', 'relocate'
+includeWithFlags ':spring:boot1-autoconfigure',          'java', 'publish', 'relocate', 'no_aggregation'
+includeWithFlags ':spring:boot1-starter',                'java', 'publish', 'relocate', 'no_aggregation'
+includeWithFlags ':spring:boot2-actuator-autoconfigure', 'java', 'publish', 'relocate'
+includeWithFlags ':spring:boot2-actuator-starter',       'java', 'publish', 'relocate'
+includeWithFlags ':spring:boot2-autoconfigure',          'java', 'publish', 'relocate'
+includeWithFlags ':spring:boot2-starter',                'java', 'publish', 'relocate'
+includeWithFlags ':spring:boot2-webflux-autoconfigure',  'java', 'publish', 'relocate'
+includeWithFlags ':spring:boot2-webflux-starter',        'java', 'publish', 'relocate'
+includeWithFlags ':dropwizard1',                         'java', 'publish', 'relocate', 'no_aggregation'
+includeWithFlags ':dropwizard2',                         'java', 'publish', 'relocate'
+includeWithFlags ':thrift0.9',                           'java', 'publish', 'relocate', 'no_aggregation'
+includeWithFlags ':thrift0.13',                          'java', 'publish', 'relocate'
+includeWithFlags ':tomcat8',                             'java', 'publish', 'relocate', 'no_aggregation'
+includeWithFlags ':tomcat9',                             'java', 'publish', 'relocate'
+includeWithFlags ':zookeeper3',                          'java', 'publish', 'relocate'
+includeWithFlags ':saml',                                'java', 'publish', 'relocate'
+includeWithFlags ':bucket4j',                            'java', 'publish', 'relocate'
+
+// Published Javadoc-only projects
+includeWithFlags ':javadoc',                             'java', 'publish', 'no_aggregation'
+
+// Unpublished Java projects
+includeWithFlags ':benchmarks',              'java'
+includeWithFlags ':it:context-storage',      'java'
+includeWithFlags ':it:grpcweb',              'java', 'akka-grpc_2.13'
+includeWithFlags ':it:micrometer1.3',        'java', 'relocate'
+includeWithFlags ':it:server',               'java', 'relocate'
+includeWithFlags ':it:spring:boot2-tomcat9', 'java', 'relocate'
+includeWithFlags ':it:spring:boot2-tomcat8', 'java', 'relocate'
+includeWithFlags ':testing-internal',        'java', 'relocate'
+includeWithFlags ':thrift0.12',              'java', 'relocate'
+
+// Unpublished non-Java projects
+includeWithFlags ':docs-client'
+
+// Site generation project
+includeWithFlags ':site'
+
+// Examples
+includeWithFlags ':examples:annotated-http-service',             'java'
+includeWithFlags ':examples:context-propagation-dagger-example', 'java'
+project(':examples:context-propagation-dagger-example').projectDir = file('examples/context-propagation/dagger')
+includeWithFlags ':examples:context-propagation-manual-example', 'java'
+project(':examples:context-propagation-manual-example').projectDir = file('examples/context-propagation/manual')
+includeWithFlags ':examples:context-propagation-rxjava-example', 'java'
+project(':examples:context-propagation-rxjava-example').projectDir = file('examples/context-propagation/rxjava')
+includeWithFlags ':examples:context-propagation-kotlin-example', 'java'
+project(':examples:context-propagation-kotlin-example').projectDir = file('examples/context-propagation/kotlin')
+includeWithFlags ':examples:dropwizard-example',                 'java'
+project(':examples:dropwizard-example').projectDir = file('examples/dropwizard')
+includeWithFlags ':examples:grpc-example',                       'java'
+project(':examples:grpc-example').projectDir = file('examples/grpc')
+includeWithFlags ':examples:grpc-kotlin',                        'java'
+includeWithFlags ':examples:grpc-scala',                         'java', 'scala-grpc_2.13'
+includeWithFlags ':examples:grpc-reactor',                       'java', 'reactor-grpc'
+includeWithFlags ':examples:proxy-server',                       'java'
+includeWithFlags ':examples:saml-service-provider',              'java'
+includeWithFlags ':examples:server-sent-events',                 'java'
+includeWithFlags ':examples:spring-boot-minimal',                'java'
+includeWithFlags ':examples:spring-boot-minimal-kotlin',         'java'
+includeWithFlags ':examples:spring-boot-tomcat',                 'java'
+includeWithFlags ':examples:spring-boot-webflux',                'java'
+includeWithFlags ':examples:static-files',                       'java'

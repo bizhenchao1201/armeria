@@ -1,18 +1,24 @@
 <?xml version="1.0"?>
-<!--
-  ~ Copyright (c) 2015 LINE Corporation. All rights reserved.
-  ~ LINE Corporation PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
-  -->
 <!DOCTYPE suppressions PUBLIC
-  "-//Puppy Crawl//DTD Suppressions 1.1//EN"
-  "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+  "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+  "https://checkstyle.org/dtds/suppressions_1_2.dtd">
 
 <suppressions>
-  <!-- Suppress Javadoc-related checks in test directories -->
-  <suppress checks="JavadocPackage" files="[\\/](test|internal)[\\/]" />
-  <suppress checks="JavadocMethod" files="[\\/](test|internal)[\\/]" />
-  <!-- Suppress all checks in generates sources -->
-  <suppress checks=".*" files="[\\/]generated[^\\/]*-sources[\\/]" />
-  <!-- Suppress checks in large forks to make diffing against upstream easier -->
-  <suppress checks=".*" files="[\\/]grpc[\\/]ServerCallImpl.java$" />
+  <!-- Suppress Javadoc-related checks in non-public code. -->
+  <suppress checks="JavadocPackage|MissingJavadocPackage|MissingJavadocType|MissingJavadocMethod" files="[\\/](examples|internal|it|jmh|test)[\\/]" />
+  <!-- Suppress JavadocPackage for tomcat8.0. -->
+  <suppress checks="MissingJavadocPackage" files="tomcat[0-9]" />
+  <!-- Suppress all checks in generated sources. -->
+  <suppress checks=".*" files="[\\/]gen-src[\\/]" />
+  <!-- Suppress checks in large forks to make diffing against upstream easier. -->
+  <suppress checks=".*" files="[\\/]common[\\/]MediaType.java$" />
+  <suppress checks=".*" files="[\\/]internal[\\/]DefaultAttributeMap.java" />
+  <suppress checks=".*" files="[\\/]reactive[\\/]DefaultSslInfo.java" />
+  <!-- Enable 'NonNullByDefaultAnnotation' for package-info.java only. -->
+  <suppress id="NonNullByDefaultAnnotation" files="(?&lt;![\\/]package-info\.java)$" />
+  <!-- Suppress checks related with main method in integration tests and examples. -->
+  <suppress checks="UncommentedMain|HideUtilityClassConstructor" files="[\\/](it|examples)[\\/]"/>
+  <!-- Enable 'NoCopyrightHeader' for examples only. -->
+  <suppress id="NoCopyrightHeader" files="^((?![\\/]examples[\\/]).)*$" />
+  <suppress id="CopyrightHeader" files="[\\/]examples[\\/]" />
 </suppressions>

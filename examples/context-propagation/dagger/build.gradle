@@ -1,0 +1,17 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':core')
+    runtimeOnly 'org.slf4j:slf4j-simple'
+
+    implementation 'com.google.dagger:dagger'
+    implementation 'com.google.dagger:dagger-producers'
+    annotationProcessor 'com.google.dagger:dagger-compiler'
+    implementation 'com.spotify:futures-extra'
+}
+
+application {
+    mainClassName = 'example.armeria.contextpropagation.dagger.Main'
+}

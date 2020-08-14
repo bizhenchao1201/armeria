@@ -1,0 +1,21 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':core')
+    implementation project(':grpc')
+    implementation 'com.salesforce.servicelibs:reactor-grpc-stub'
+    compileOnly 'jakarta.annotation:jakarta.annotation-api'
+    runtimeOnly 'org.slf4j:slf4j-simple'
+
+    testImplementation 'jakarta.annotation:jakarta.annotation-api'
+    testImplementation 'net.javacrumbs.json-unit:json-unit-fluent'
+    testImplementation 'org.assertj:assertj-core'
+    testImplementation 'org.awaitility:awaitility'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+}
+
+application {
+    mainClassName = 'example.armeria.grpc.reactor.Main'
+}

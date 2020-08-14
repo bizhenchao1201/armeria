@@ -1,0 +1,9 @@
+dependencies {
+    api project(':junit5')
+    api project(':junit4')
+
+    api 'org.apache.httpcomponents:httpclient'
+    api 'org.assertj:assertj-core'
+    api 'org.junit.jupiter:junit-jupiter-params'
+    api 'org.mockito:mockito-junit-jupiter'
+}

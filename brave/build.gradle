@@ -1,0 +1,7 @@
+dependencies {
+    api 'io.zipkin.brave:brave'
+    api 'io.zipkin.brave:brave-instrumentation-http'
+
+    testImplementation project(':thrift0.13')
+    testImplementation 'io.zipkin.brave:brave-instrumentation-http-tests'
+}

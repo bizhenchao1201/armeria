@@ -1,0 +1,13 @@
+dependencies {
+    // Curator
+    api 'org.apache.curator:curator-recipes'
+    api 'org.apache.curator:curator-x-discovery'
+
+    // ZooKeeper
+    api 'org.apache.zookeeper:zookeeper'
+
+    // ZooKeeper JUnit
+    testImplementation 'org.dmonix.junit:zookeeper-junit'
+
+    testImplementation 'com.twitter:finagle-serversets_2.13'
+}
